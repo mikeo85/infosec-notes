@@ -1,0 +1,7 @@
+#+TITLE: InfoSec Notes
+#+SUBTITLE: Notes from my Information Security Education Journey
+
+* Mike’s InfoSec & General IT Education Notes ([[infoSecNotes.org][infoSecNotes.org]])
+Semi-organized compilation of reference notes from all over the place.
+* Notes from InfoSec Webinars and Presentations ([[infoSecWebinarsPresentationsNotes.org][infoSecWebinarsPresentationsNotes.org]])
+Self explanatory...
