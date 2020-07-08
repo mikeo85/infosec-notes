@@ -1,0 +1,332 @@
+#+TITLE: Notes from InfoSec Webinars and Presentations
+#+OPTIONS: toc:1 h:2
+
+* 20190717 EVENT: The Arc of an Attack: Aligning Defensive Strategies (TrustedSec)
+Trusted Sec and Binary Defense - Round Table - July 17, 2019
+** HIGHLIGHTS
+*** Focus on the basics: passwords, vulnerability management, asset knowledge, environment knowledge, application whitelisting
+*** Executables remain a huge problem
+*** Develop root causes and process improvements. Try to build to proactive rather than reactive.
+*** Develop IR plans
+** Event Notes
+*** Basics are kicking our butts
+**** Weak passwords
+**** Vulnerability management
+**** asset knowledge, versioning
+**** most breaches last year came from CVE six months or older
+**** Macros still very common vector
+**** Powershell exploitation is up -- why are we letting regular users execute powershell?
+**** Internal windows firewall -- TURN IT ON
+**** Endpoint logs are a *must* when it comes to detection and understanding
+*** Most orgs are at a basic maturity level
+*** Most breaches are through executables -- lack of app whitelisting, allowing unsigned code to run
+*** LOLBAS - Living off the land binaries and scripts
+*** Breakout time is getting faster -- average time to breakout (escalate, move laterally, otherwise get off of the initial entry point) is between 1.5-2 hours
+*** In contrast, average time to discovery is 6 months... womp womp
+*** Constant general problems: Lack of people, Lack of time, lack of skill
+*** Need to learn and know your environment, what's normal and what's not
+*** 60% of SMBs fold within 6 months of a major cyber incident/breach
+*** Look to root causes of issues... don't just keep fixing the results
+**** Ex: Vulnerability management finds thousands of issues. Don't run around just fixing all the issues. *Fix the patch process that allows all the vulns to keep happening!*
+*** Threat intelligence - more than just IP block lists and file hash lists
+*** Trend and recommendation: Try to understand "usual" and "unusual" behavior on the network. Don't just rely on block lists and identifying exploits.
+*** Value of Antivirus? 
+**** Easy for attackers to circumvent. 
+**** But addresses still-big problem of commoditized malware.
+**** Also, required by most compliance frameworks
+**** So, old, not the only answer, but still necessary and recommended.
+*** Dave Kennedy is huge advocate of application whitelisting
+**** Knows it's not easy
+**** Starting point: Use GP to prohibit unsigned executables from running in user profile directories. This cuts about 80% of the noise.
+*** Incident Response - The only time to set up an IR plan is *BEFORE* you need one
+**** IR plan is a high level procedure for how to run an incident
+**** Includes:
+***** Incident categories and severities
+***** Role assignment: Incident commander (interface bw tech & biz leaders). Incident handler (leads tech effort). Incident scribe (document everything found and done... boring but critical)
+***** SLAs
+***** Communication guidelines
+***** Call tree
+**** Good IR plan keeps teams & biz execs from panicking during an incident (mostly)
+**** TEST your IR plan through tabletop exercises -- good way to surface issues
+*** Remediation: Big Picture for Effective Implementation (Of just about anything)
+**** Focus on People FIRST
+**** Second, develop processes
+**** Technology comes THIRD
+* 20200326 WEBINAR: Pandemic Paradigm Shift: Remote Working is the New Normal (BHIS)
+Black Hills Information Security - 3/26/2020
+** remote work and increasing reliance on internetworking -- Something to get used to
+** VPN - connect to corporate resources
+*** Split tunneling - convenient, but less secure
+*** Beware of "agent-only" protection of remote assets. Not as reliable as actually routing all traffic through VPN & IPS.
+*** SASE (or CASB) + VPN -- this is what we should have been doing all along anyway
+*** You cannot enforce people to secure their home network
+** BASIC HOME NETWORK SEGMENTATION
+*** Solid security is built on a foundation of good architecture, then you can add your bells & whistles & extra security features
+*** Basic recommendation:
+1. Home office network zone (HIGH TRUST LEVEL)
+2. Guest + home entertainment netowrk zone (LOW TRUST LEVEL)
+3. Internet (UNTRUSTED)
+* 20200422 WEBINAR: Turn Your IT Headache Into a Strategic Business Advantage (Netgain)
+- 4/22/2020 - HIMSS, NHCSBC, Netgain
+- Presenter: Bill Sorensen, CISO, Netgain
+** Current On-Site IT -- COVID-19
+*** Remote Workers Now!
+*** On site or colo data centers... challenges
+*** break-fix tendency
+*** software licensing challenges
+*** Disaster recovery -- not prepared for this
+- commonly viewed as requirement to meet compliance and process we hoped we'd never need
+- COVID19 - DR/BC plans really difficult, not (or barely) functioning plans, never tested, not ready for this sort of challenge
+** Cloud Environments
+** Unique Benefits of the Cloud
+*** Scalability
+*** Flexibility
+*** Performance
+*** Cyber security
+- Amount of resources and staffing that major public clouds put into cybersec is unfathomable!
+- Microsoft alone -- 35k employees on cybersec
+- With the caveat of resource configuration - top cloud platforms offer better cybersec than even top enterprises
+*** Pay for what you use
+*** Dramatic redundancy
+*** Business continuity
+*** COVID-19 validation
+- Customers (like netgain's) using hosted cloud... almost no technology-caused disruption with transition to remote work during COVID. They logged in on Monday and got to work just like normal.
+** Remote Workers
+*** New normal?
+*** Variety of cloud computing solutions
+**** cloud desktops -- location independent
+**** Hosted EHR/EMR & other key applications
+*** Big increase in end-user attacks... they're vulnerable, out of their normal
+** Risk Management
+*** Shared responsibility model in the cloud
+*** Importance of capable, security-focused partners
+*** Move responsibility to other players vs on-prem risk all on yourself
+**** Allows end-org to focus specifically on the things you can control
+**** Frees up your time to focus on what's most important
+**** Let the other pieces be handled by experts with more capacity
+*** Move from IT tactical response to IT strategic partnership
+*** Focus on your organization's needs
+** Cyber Security - new challenges
+*** Dramatic increase in phishing following significant national/international event
+*** Securing employee's new location
+*** Wifi changes at home - separate networks
+*** keeping their devices separate and secure
+*** Juggling new environment exposures
+*** Phishing, malware, and ransomware excalate
+*** Two-factor!!!
+** Move Now and Never Again
+*** The public cloud is your last platform
+*** Dramatic security
+*** innovation
+*** pay for what you use
+*** flexibility as your needs change
+*** strong IT partner in Netgain
+* 20200401 WEBINAR: Preventing Remote Work Phishing Attacks (InfraGard)
+- *Keeping Your Organization Safe From Becoming A Victim While Working From Home*
+-*Speaker:* Ron Ritchey, JP Morgan Chase
+** Reports that Phishing clickthroughs are up 9x during work from home as compared to previous baseline
+** Training -- very short half-life to effectiveness of training. If not constantly renewed, effectiveness decreases quickly
+** Types of Phishing campaigns
+*** Targeted
+**** Typically focus on particular industry sector or organization
+**** Easy for attackers to monitize
+**** Easy to create (buy a kit off the dark web, cheap)
+**** Fairly good quality, generally good presentation, gramar, syntax, etc.
+*** Microtargeted (spear phishing)
+**** Very focused, on either departments or specific individuals
+**** Sophisticated, high quality
+**** Requires investment on attacker end
+**** High effectiveness & payoff
+*** General / Untargeted
+**** Spray and pray
+**** Quality and effectiveness varies wildly
+**** typical indicators: urgency, call to action, grammar/spelling errors
+** Current Trends / Campaigns
+*** COVID updates
+*** Stimulus checks
+*** Grants offers / business support
+*** Requests for donations
+*** Brands being abused:
+**** World Health Organization
+**** CDC
+**** Johns Hopkins
+**** SBA
+**** IRS
+** Issues specific to Work-From-Home situation
+*** Users may not be on fully-controlled infrastructure
+Or use of (going outside of) non-coorporate resources
+- ex: remote connection bandwidth not holding up to volume
+- Lack of sufficient resources, laptops, etc.
+** Challenges of Incident Response at distance
+Think about how to adapt incident response processes to distance.
+* 20190517 WEBINAR: The Importance of Logs: You Won't See what you don't audit (Black Hat / Cisco)
+- Speaker: Tim Brown, Cisco
+- https://www.blackhat.com/html/webcast/05162019-the-importance-of-logs-you-wont-see-what-you-dont-log-waudit.html
+- [[file:Cyber/TheImportanceOfLogs_BlackHatWebcasts.pdf][SLIDES]]
+** Webinar Summary Blurb
+As a Team, Cisco's CX EMEAR Security Architecture team sees an awful lot of customer sites and systems where logging is either unconfigured or where it is configured in an inappropriate fashion.
+
+In our experience, we find issues relating to this in over 50% of assessment engagements which climbs still further for engagements where we're asked to actively deliver our incident response capabilities. It's not often talked about but effective logging is a key control both to give the blue team visibility of the network they're defending and to enable accurate analysis in the event of an incident. This talk will cover:
+- Why logging goes wrong
+- How to start to plan your logging requirements
+- Case studies
+- Where to go next
+
+*Guest Presenter: Tim (Wadhwa-) Brown*
+Tim (Wadhwa-) Brown joined Cisco as part of their acquisition of Portcullis for whom he worked for almost 12 years. He is equally happy performing white box assessments with access to source code or where necessary diving into proprietary binaries and protocols using reverse engineering methodologies. Tim has contributed to a number of Cisco's bespoke methodologies covering subjects as diverse as secure development, host hardening, risk and compliance, ERP and SCADA. In 2016-2017, Tim looked at targets as varied as Active Directory, z/OS mainframes, power stations, cars, banking middleware and enterprise SAP Landscapes. Outside of the customer driven realm of information assurance, Tim is also a prolific researcher with papers on UNIX, KDE, Vista and web application security to his name.
+** Slow response is expensive
+** Ineffective or missing logging is a real problem
+** First questions after every breach: How? Why? Are they still in here?
+** Common failings:
+*** Unsynced time / multiple time zones
+*** Log ingestion
+*** Log capacity & growth
+*** Poor logging capabilities
+*** Poorly configured logging
+*** Unfamiliarity with the application stack
+*** Lack of ground truth -- what is actually meant to be happening on the network
+*** Every failed security check should result in an audit event
+** How can we improve telemetry?
+*** Ensure you're risk focused
+Think through risks -- log those security events
+**** From a defensive standpoint, look at: Assets, actors, threats, impact
+**** Where are defensive controls?
+**** Frameworks for common language (Microsoft STRIDE, MITRE ATT&CK and CAPEC)
+**** Does the solution help or hinder visibility? (signal vs noise)
+*** Ensure you consider your users
+Log user behaviors, consider what if user is phished, etc.
+**** Audit the entire stack -- user, application, api, web server, db, file system, OS, network
+**** Understand how user behavior correlates to log events
+*** Engage with the enterprise
+Can't sit in an ivory tower
+**** With procurement -- work to include logging/audit in procumement process
+**** With platform teams -- they should know what "good" looks like
+**** With developers -- help them build in useful logging for seurity purposes
+** The "What" of auditing
+*** RECOMMENDATIONS OF WHAT TO LOG
+https://alln-extcloud-storage.cisco.com/ciscoblogs/chart1.png
+[[https://blogs.cisco.com/security/the-significance-of-log-sources-to-building-effective-intelligence-driven-incident-response][(Source)]]
+*** If you're logging something... IS IT USEFUL TO YOU?
+** NEXT STEPS
+*** See slides
+*** [[https://www.ncsc.gov.uk/guidance/introduction-logging-security-purposes][Introduction to Logging for Security Purposes (UK NCSC)]]
+* 20200520 WEBINAR: Addressing Endpoint Challenges of a (Suddenly) Remote Workforce with Azure (TrustedSec)
+** LINK: https://youtu.be/1TN1zVl5b4Q
+** Description:
+We did it! We got everyone up and running remotely!
+Nice job! For some, that was a more difficult task than for others. There was a lot to do in a short period of time, and most executives didn’t realize that it included more than just using Zoom. There’s remote sharing of documents, endpoint updates, setting up and/or adding more VPN licenses, opening up access to previously restricted vectors, and probably most challenging—answering questions for all of your end users that suddenly blew up the help desk! 
+
+But are we adequately securing those endpoints? 
+Hey, you did what you had to do. There wasn’t time for all of those new-fangled security subscription products with unending fees, and it’s not likely that there are going to be budget increases with everything that’s happening. Still, there are some core challenges that need to be resolved in ensuring that all machines are updated and in the desired state of intended configuration. 
+
+Automating endpoint hygiene is now a must. 
+Traditional tactics using Group Policy just aren’t going to cut it. You don’t have the time to manage it, and with the increased complexity, it’s also increasingly error prone. Shoring up this area of your security program is going to require that you convert existing Group Policy to cloud-based configuration management to maintain control over the endpoints. 
+
+How can we move to cloud-based configuration management?
+During this practical webinar, we’ll demystify Azure State Configurations and modern DevOps principles, allowing you to begin your journey toward simpler automation. In addition, we’ll show you how to: 
+•	Replace and set a registry key
+•	Configuration services 
+•	Disable NetBIOS
+•	Set execution policy 
+
+Maintaining control of your endpoints has never been more important! 
+Join TrustedSec Practice Lead Paul Sems and Security Consultant Phil Rowland as they impart their knowledge and experiences converting existing Group Policy to Desired State Configurations in the cloud.
+** Challenges managing endpoints
+*** maintaining updates
+*** remote access (files, CRP, ERP)
+*** remote support
+*** VPN tunneling
+- run all traffic thru main HQ?
+- bandwidth concerns
+*** Zoom / videoconference decisions
+*** Remote password resets
+** State Configurations -- what can they do?
+*** aka "desired state configurations" (DSC)
+*** way to specify a list of configuration items you want the system to enforce
+*** put configuration into a file
+*** deploy new infrastructure, computer applies configurations from the file
+*** can maintain config of existing stuff in addition to new deployment
+*** Open-sourced language (from microsoft)
+*** multiple applications can create/manage config files
+*** more robust, flexible, available than Group Policy
+**** Windows only
+**** requires domain controller infrastructure
+**** Have to wait for users to connect for it to get pushed out
+**** If talking remote, all has to connect & push over VPN
+**** GP doesn't have great status reporting4
+*** Configure any OS
+*** Maintain state automatically
+*** Regularly report status
+*** push files and install software
+*** configure services
+*** set registry keys
+*** configure security policies
+*** Domain membership optional
+*** Done in code -- textfile -- powershell file (filename.ps1)
+** Benefits of Azure
+*** VPN not required
+*** Cloud authentication
+*** OneDrive, CRM online
+*** Intune Auto-enrollment
+- good to get started, but only goes so far
+- at most, 15-20% of CIS benchmarks are even available thru Intune
+- Note: Intune /not required/ for DSC
+*** State configurations (DSC)
+- push enrollment in State Configurations thru Intune
+- then State Configurations 
+** Gallery in azure of sample DSC configuration files to work from
+** DSC available on all major cloud services... but easier on Azure, gives services, compiling, other options, reporting, etc.
+** What needs to be on an endpoint for this to work
+*** WINDOWS - already exists - 'local configuration manager service'
+** [[https://docs.microsoft.com/en-us/powershell/scripting/dsc/getting-started/wingettingstarted?view=powershell-7][Microsoft Docs on DSC]]
+** Office 365 -- partially applies -- more features coming
+* 20200603 WEBINAR: A Surprise Trip to Zero-Trust Land (BlackHat / Cisco)
+** Zero-Trust Land
+*** Risk is greater
+*** fewer viable options
+*** timeline and future are unknown
+** NOT Perimeter
+*** Can't trust just because it is inside the perimieter
+*** New-perimeter is anywhere you make an access control decision
+*** least privilege
+*** multifactor authentication
+**** more factors, more flexibility
+*** endpoint security
+**** can't assume device is corporate owned and managed
+**** check at every authentication
+**** make access contingent on compliance to security rules
+**** bind user to device
+*** continuous monitoring
+**** behavioral analytics
+**** step-up authentication
+*** microsegmentation at the network layer
+*** authenticate first, THEN connect
+*** encryption everywhere
+*** reverse proxies
+** The Zero Trust Shift
+*** Assume the network is hostile
+*** every device, user, and network flow is authneticated and authorized at a granual level
+*** trust is impermanent
+*** policies must be dynamic and calculated in real time
+*** depends on identity
+**** adopt risk-defined access
+**** manage access at endpoint
+*** Digital trust is a dynamic level of trust
+**** cannot be based on ownership & control
+**** ephemeral and only valid for current instance
+*** Zero trust is a process, not a destination
+**** identification is a key piece
+**** relies on defense in depth
+* 20200610 WEBINAR: IPv6: How to Securely Start Deploying w/ Joff Thyer (1-Hour) [BHIS]
+** V6 Not more or less secure than V4... just different
+** V4 exhausted in January 2011 
+*** IANA used last free /8 address block
+*** i.e. all address blocks allocated to regional registries
+*** 2020 projected year that we will absolutely have zero ipv4 address space
+*** IPv6 Address format:
+**** 128 bits total
+**** first 64 bits are network prefix (describes network location)
+**** second 64 bits are unique identifier
+*** Packet Encapsulation:
+**** Ethernet protocol type 0x86DD
+**** Can tunnel v6 within v4 using protocol 41

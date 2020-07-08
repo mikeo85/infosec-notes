@@ -1,0 +1,517 @@
+#+TITLE: Mike's InfoSec & General IT Education Notes
+#+OPTIONS: h:2
+
+* 00 Learning Resources & References
+** General
+- *Null-Byte* https://null-byte.wonderhowto.com/
+  - Lots of articles on hacking
+- *Over The Wire Wargames* http://overthewire.org/wargames
+  - levels-based hacking challenges, from beginner upward
+- *Vulnhub* https://www.vulnhub.com
+  - Intentionally vulnerable virtual machines for practicing specific attacks
+- *SANS Holiday Hack Challenge*
+** Cryptography
+- *Crypto 101* https://www.crypto101.io/
+  - Crypto 101 is an introductory course on cryptography, freely available for programmers of all ages and skill levels.
+** Web & Application Security
+- *Hacker101* https://www.hacker101.com/
+  - Hacker101 is a free class for web security. Whether you're a programmer with an interest in bug bounties or a seasoned security professional, Hacker101 has something to teach you.
+- *PortSwigger Web Security Academy* https://portswigger.net/web-security
+  - Welcome to the Web Security Academy. This is a brand new learning resource providing free training on web security vulnerabilities, techniques for finding and exploiting bugs, and defensive measures for avoiding them. The Web Security Academy contains high-quality learning materials, interactive vulnerability labs, and video tutorials. You can learn at your own pace, wherever and whenever suits you. Best of all, everything is free! 
+- *Kontra Application Security Training* https://application.security/free-application-security-training
+** Privacy & Personal Security Tools / Lists
+- SecurityCheckli.st [[https://securitycheckli.st/][link]]
+- Quad9 Private/secure DNS service [[https://www.quad9.net/][link]]
+- PrivacyTools.io [[https://www.privacytools.io/][link]]
+** Research & Cyber Trends
+- [[https://library.cyentia.com/][Cyentia Cybersecurity Research Library]]
+* 01 Webinar & Presentation Notes
+In separate file: [[file:infoSecWebinarsPresentationsNotes.org][infoSecWebinarsPresentationsNotes.org]]
+* Architecture & Design Security
+** Access Control
+*** AAA - Authorization, Authentication, and Accounting
+*** RADIUS (Remote Authentication Dial-In User Service)
+- Common access control protocol
+- Centralize authentication for users across all different devices (routers, switches, firewalls, servers, VPN, wireless)
+- Available for most operating systems
+*** TACACS
+*** KERBEROS
+- Authenticate once, trusted by system
+- No need to reauthenticate to everything
+- Encryption prevents MITM
+- Provides SSO functionality
+*** LDAP (Lightweight directory access protocol)
+- protocol for reading and writing directories over an IP network
+- standardized X.500 protocol
+- Creates attribute=value pairs
+- hierarchical structure - containers and leafs
+*** LOCAL AUTHENTICATION
+- creds stored on local device, not centralized
+- Difficult to scale
+- Can be useful as backup, eg if AAA server is unavailable
+*** Certificate-based authentication
+- Private key, usually stored on smart card or similar
+- Also often stored on laptop, USB drive
+*** Auditing
+** Software Development
+*** SDLC - An organized process of decveloping a secure application throughout the life of the project
+- SDLC Phases (as CompTIA defines them) /LEARN THESE PHASES FOR EXAM/
+  - Planning & Analysis
+  - Software / System design
+  - Implementation
+  - Testing
+  - Integration
+  - Deployment
+  - Maintenance
+    - Version control
+    - Configuration management
+- SDLC Principles
+  - CIA Triad
+  - Threat modeling
+  - Least privilege
+  - Defense in depth
+  - Never trust user input
+  - Minimize attack surface
+  - Create secure defaults
+  - Authenticity & integrity
+  - Fail securely
+  - Fix security issues
+  - Rely on trusted SDKs
+*** Testing Methods
+- System Testing
+  - Black Box
+    - no info about system before test
+  - White Box
+    - full details of a system provided before test, including source code, diagram, user creds, etc
+  - Gray Box
+    - given some info, but not all info
+- Structured Exception Handling
+- Input Validation
+- Static analysis
+  - review of source code
+- Dynamic analysis
+  - analysis and testing of program while being executed or run
+- Fuzzing
+  - injection of random data into program and find system failures, etc
+*** Software vulnerabilities and exploits
+- Backdoors
+- Directory traversal
+  - Example: using ../ repeatedly in a web url, trying to get to root of webserver
+    : https://www.diontraining.com/menu?menu=../../../../etc/passwd
+     ==> Trying to get to root of diontraining.com server then traverse to the /etc/passwd file. If successful, would print text file of passwords on the screen
+- Arbitrary Code Execution
+- Remote code execution (RCE)
+- Zero Day
+- Buffer Overflow
+  - When process stores data outside the memory range allocated by the developer. I.e. attempt to put more data into memory than it is designed to hold.
+  - Mitigation: Address Space Layout Randomization
+    - Method used by programmers to randomly arrange the different address spaces used by a program or process to prevent buffer overflow exploits
+- XSS - Cross-Site Scripting
+  - Attacker embeds malicious scripting commands on a trusted website
+  - Stored/Persistent
+  - Reflected
+  - DOM-Based (client-side)
+  - Mitigation: Output encoding, proper input validation
+- XSRF - Cross-site request forgery
+  - Attacker forces user to execute actions on a web server where they are already authenticated
+  - Mitigation: tokens, encryption, XML file scanning, cookie verification
+- SQL Injection
+  - Injection of SQL query via input data from client to web application
+  - Usually SQL, HTML, XML, or LDAP code used... MOSTLY SQL
+    *FOR THE EXAM* If you see /`OR 1=1;/ or any similar code that would always be true, it is an SQL INJECTION
+  - PREVENTION: Input validation
+** Network Design
+*** OSI Model
+- Application
+- Presentation
+- Session
+- Transport
+- Network
+- Data Link
+- Physical
+- /Mnemonic: Please Do Not Throw Sausage Pizza Away/
+*** Switches
+- Security through intelligent use of MAC addresses
+- Attacks:
+  - MAC Flooding
+    - Attempt to overwhelm the limited switch memory set asside to store the MAC addresses for each port
+    - Can cause switch to fail-open, begin to act like hub (i.e. send packates to all connected devices, not just selecting by MAC address)
+  - MAC Spoofing
+    - Attacker masks MAC address to pretend to be another device
+    - Often combined with ARP spoofing
+  - Physical Tampering
+- Routers
+  - Access control list (ACL) -- attack via IP spoofing
+  - Often insecure out-of-the-box
+*** Network Zones
+- LAN
+- WAN
+- DMZ
+- Subnets
+*** Network Access Control (NAC)
+- Devices sare scanned to determine current state prior to being allowed onto the network
+- Enter network only on pass assessment
+- Persistent vs Non-Persistent agents
+- Port-based NAC: 802.1x
+*** VLANs
+- Segment the network
+- reduce collisions
+- organize the network
+- boost performance
+- increase security
+- Attacks
+  - Switch spoofing: attacker configures device to pretend it is a switch, negotiate trunk link to break out of vlan
+  - Double tagging - attacker adds additional VLAN tags to creat outer and inner tag
+*** Subnetting
+- compartmentalization
+- subnet policies and monitoring can aid in security of network
+*** NAT - Network Address Translation
+- Changing IP address while it transits across a router
+- NAT can help us hide our network IPs
+- *Port Address Translation* - Router keeps track of requests from internal hosts by using random high number ports for each request
+- /Exam note:/ Refresh on Private IP ranges
+  - Class A / Class B / Class C
+  - Private IP addresses can never be transmitted over the internet
+*** Telephony
+- Devices that provide voice communication
+** Perimeter Security
+- Boundary between LAN & WAN
+*** Firewalls
+- Packet filtering -- stateless & statefull
+  - Stateless: accept or reject packets based on ACL rules
+  - Statefull: tracks packets leaving the network and only allows matching inbound
+- NAT Filtering
+- Explicit Allow, Explicit Deny, Implicit Deny
+*** Web Application Firewalls
+- Traffic control on data sent to and from a web app
+*** Proxy Server
+- Disable Proxy Auto-configuration file (PAC) for security
+*** NIDS vs. NIPS
+**** NIDS - Network Intrusion Detection System
+- Attempts to detect, log, and alert on malicious network activities
+- Usually placed right behind the firewall
+- Promiscuous mode -- see all network traffic on a segment (e.g. Span port on network switch)
+- Only uses signature based rules or heuristics. Logs and alerts -- no preventive action.
+**** NIPS - Network Intrusion Prevention System
+- Attempts to remove, detain, or redirect malicious traffic
+- Must be *in-line* of network traffic flow
+**** May have built-in protocol analyizer - AKA Deep Packet Inspection
+*** UTM - Unified Threat Management
+- AKA Next Generation Firewall (NGFW)
+- May include firewall, NIDS/NIPS, content filter, antimalware, dlp, and vpn
+** Cloud Computing
+*** Know the 4 types:
+- Public
+- Private
+- Hybrid
+- Community
+*** As A Service
+- Infrastructure
+- Platform
+- Software
+*** Domain Controller - Active Directory Attack
+- Kerberos attack called "golden ticket"
+* Cloud
+** Microsoft Azure
+https://www.microsoft.com/en-us/azureessentials/Pivot/AzureEssentials/AzureInfrastructure/Watch
+- PaaS - Platform as a service - MSFT runs compute & app services, you manage apps & data
+- IS - Infrastructure as a service - MSFT manage compute, storage, & network infrastructure, you manage everything else
+- 40 global regions (collections of data centers)
+- Compute -- run VMs, set up your own or use pre-configured VMs
+* Cryptography & PKI Security
+* Docker
+*** [[http://codeopolis.com/posts/25-basic-docker-commands-for-beginners/][25 Basic Docker Commands for Beginners]]
+*** You can see the containers on your computer using:
+: docker container ls
+*** Remove all images and containers
+- *Warning: This will destroy all your images and containers. There is no way to restore them!*
+**** Run those commands in a shell:
+: docker rm $(docker ps -a -q)
+: docker rmi $(docker images -q)
+****  In case you want to delete even those images that are referenced in repositories, use:
+: docker rmi $(docker images -q) --force
+* Emacs
+** Org Mode
+- Convert text or headings to list
+: C-c -
+- Mark (select) entire subtree: =C-c @=
+  - can then delete, for example
+*** Tables
+- https://orgmode.org/worg/org-tutorials/tables.html
+- https://orgmode.org/manual/Built_002din-Table-Editor.html
+**** Creating a table
+Create a table from scratch using =C-c |=
+
+Or start by typing the "|" character at the beginning of a line and between column headers. 
+: |One | Two | Three
+Then =C-c RET= to automatically generate the headers and separator row as follows:
+| One | Two | Three |
+|-----+-----+-------|
+|     |     |       |
+
+Or Start the second line with "|-" to create the header separator row:
+: | One | Two | Three |
+: |-
+Then =TAB= to get:
+| One | Two | Three |
+|-----+-----+-------|
+|     |     |       |
+**** Working with table
+- Copy down from previous cell =S-RET=
+- Blank field at point =C-c SPC=
+*** Refile
+- Org-refile =C-c C-w=
+- Add file to org-agenda-files (to be a refile target) =C-c [=
+** Dired
+*** Editing the Dired Buffer =C-x C-q=
+Wdired is a special mode that allows you to perform file operations by editing the Dired buffer directly (the “W” in “Wdired” stands for “writable”). To enter Wdired mode, type C-x C-q (dired-toggle-read-only) while in a Dired buffer. Alternatively, use the ‘Immediate / Edit File Names’ menu item.
+
+While in Wdired mode, you can rename files by editing the file names displayed in the Dired buffer. All the ordinary Emacs editing commands, including rectangle operations and query-replace, are available for this. Once you are done editing, type C-c C-c (wdired-finish-edit). This applies your changes and switches back to ordinary Dired mode.
+
+Apart from simply renaming files, you can move a file to another directory by typing in the new file name (either absolute or relative). To mark a file for deletion, delete the entire file name. To change the target of a symbolic link, edit the link target name which appears next to the link name. 
+
+[[https://www.gnu.org/software/emacs/manual/html_node/emacs/Wdired.html][Source: Emacs Manual]]
+** General
+- Mark multiple lines as comments: select region, then =M-;= (Note: same thing to un-comment)
+- =M-u= upcase word (make word uppercase from point)
+** Macro
+- Define kbd macro =C-x (=
+- End macro =C-x )=
+- Execute macro =C-x e=
+* Firefox
+** Tweaks
+*** How to restore the old Firefox address bar [[https://www.ghacks.net/2020/04/08/how-to-restore-the-old-firefox-address-bar/][source gHacks]]
+1. Load about:config in the browser's address bar.
+2. Confirm that you will be careful.
+3. Search for the following preferences and set them all to FALSE
+   : browser.urlbar.openViewOnFocus
+   : browser.urlbar.update1
+   : browser.urlbar.update1.interventions
+   : browser.urlbar.update1.searchTips
+   : browser.urlbar.update1.view.stripHttps
+4. Restart the Firefox web browser.
+* Identity & Access Management (IAM) Security
+* Linux
+*** PACKAGE MANAGEMENT
+**** Remove PPA
+- Using APT in Terminal
+: sudo add-apt-repository --remove ppa:PPA_name/ppa
+- Using source list in Terminal
+: sudo ls /etc/apt/sources.list.d
+Look for desired PPA and remove using
+: sudo rm -i /etc/apt/sources.list.d/PPA_name
+*** Cron
+- start cronjob scripts with =#!/bin/bash -l= so they pick up the ~/.bash_profile environment variables
+- edit crontab with =crontab -e=
+- =crontab -l= to list user crontab
+- reload (probably superfluous): =sudo service cron reload=
+*** KDE Desktop Environment
+**** Quit/Restart
+Open terminal or Run dialog (Ctrl + F2)
+: killall plasmashell #to stop it
+: kstart plasmashell #to restart it
+*** Wifi/Ethernet
+**** Network not connecting
+- Reset network manager:
+sudo systemctl restart NetworkManager
+*** Cron
+see https://help.ubuntu.com/community/CronHowto
+*** Install .deb
+Download deb file
+In terminal: 
+cd to deb location
+dpkg -i *.deb
+*** fdupes – A Command Line Tool to Find and Delete Duplicate Files in Linux
+- ref: https://www.tecmint.com/fdupes-find-and-delete-duplicate-files-in-linux/
+- Suggested use:
+  - Review all duplicates, recursive, multiple directories, with filesize: =$ fdupes -S -R <dir1> <dir2> > ~/fdupeslist.txt=
+  - Same search, delete files (prompted one set at a time): =$ fdupes -d -R <dir1> <dir2>=
+* Networking
+(TCP/IP/switching/routing/protocols,etc.)
+** Network Tools
+*** IP Scanner: Arp-Scan
+sudo arp scan -l
+- modifier -l scans local network
+- can also specify by IP/Subnet or by IP range, e.g.
+  - sudo arp-scan 192.168.1.0/24     #Scans 192.168.1.0 255.255.255.0
+  - sudo arp-scan 192.168.1.1-192.168.1.254     #Scans the obvious range
+- http://itswapshop.com/articles/top-3-ip-scanners-linux
+*** Port Scanner: nmap
+sudo nmap -sP 192.168.1.0/24     #Scans 192.168.1.0 255.255.255.0
+sudo nmap -sP 192.168.1.1-254     #Scans the obvious range
+
+can also be used as an IP scanner, but slower than arp-scan.
+- http://itswapshop.com/articles/top-3-ip-scanners-linux
+** IP - Internet Protocol
+*** PROTOCOL: TCP & UDP - OSI Layer 4 - Transport Layer
+**** TCP - Transmission control protocol
+- Connection-oriented (setup & close)
+- Reliable delivery - get acknowledgement
+- Flow control
+**** UDP - User Datagram Protocol
+- Connectionless protocol -- no verification, open or close
+- "unreliable" - no return verification
+- No flow control
+*** Port Number - where the packet needs to go within the IP address device
+- Non-ephemeral ports -- permanent port numbers (usually used by services)
+- Ephemeral (temporary) port numbers
+- Port numbers are for communication, not security
+- Ports tell the server/device which application needs to get the data in the packet
+** Common Ports and Protocols
+| PORT            | PROTOCOl         | DESCRIPTION                                                                                                                              |
+|-----------------+------------------+------------------------------------------------------------------------------------------------------------------------------------------|
+| 21 TCP          | FTP              | File Transfer Protocol is used to transfer files from host to host                                                                      |
+| 22 TCP/UDP      | SSH, SCP, SFTP   | Secure Shell is used to remotely administer network devices and systems. SCP is used for secure copy and SFTP for secure FTP.            |
+| 23 TCP/UDP      | Telnet           | Unencrypted method to remotely administer network devices (should not be used)                                                           |
+| 25 TCP          | SMTP             | Simple Mail Transfer Protocl is used to send email over the internet                                                                     |
+| 53 TCP/UDP      | DNS              | Domain Name Service is used to resolve hostnames to IPs and IPs to hostnames                                                             |
+| 69 UDP          | TFTP             | Trivial FTP is used as a simplified version of FPT to put a file on a remote host or get a file from a remote host                       |
+| 80 TCP          | HTTP             | Hyper Text Transfer Protocol is used to transmit web page data to a cilent for unsecured web browsing                                    |
+| 88 TCP/UDP      | Kerberos         | Used for network authentication using a system of tickets within a Windows domain                                                        |
+| 110 TCP         | POP3             | Post Office Protocol v3 is used to receive email from a mail server                                                                      |
+| 119 TCP         | NNTP             | Network News Transfer Protocol is used to transport Usenet articles                                                                      |
+| 135 TCP/UDP     | RPC/DCOM-scm     | Remote Procedure Call is used to locate DCOM ports                                                                                       |
+| 137-139 TCP/UDP | NetBIOS          | NetBIOS is used to conduct name querying, sending of data, and other functions over a NetBIOS connection                                 |
+| 143 TCP         | IMAP             | Internet Message Access Protocol is used to receive email from a mail server with more features than POP3                                |
+| 161 UDP         | SNMP             | Simple Network Management Protocol is used to remotely monitor network devices                                                           |
+| 162 TCP/UDP     | SNMPTRAP         | Used to send Trap and InformRequests to the SNMP Manager on a network                                                                    |
+| 389 TCP/UDP     | LDAP             | Lightweight Directory Access Protocol is used to maintain directories of users and other objects                                         |
+| 443 TCP         | HTTPS            | Hyper Text Transfer Protocol Secure is used to transmit web page data to a client over the internet with an SSL/TLS encrypted connection |
+| 445 TCP         | SMB              | Server Message Block is used to provide shared access to files and other resources on a network                                          |
+| 456/587 TCP     | SMTP SSL/TLS     | Simple Mail Transfer Protocol used to send email over the internet with an SSL/TLS encrypted connection                                  |
+| 514 UDP         | Syslog           | Syslog is used to conduct computer message loggin, especially for routers and firewall logs                                              |
+| 636 TCP/UDP     | LDAP SSL/TLS     | LDAP is used to maintain directories of users and other objects over an encrypted SSL/TLS connection                                     |
+| 860 TCP         | iSCSI            | iSCSI is used for linking data storage facilities over IP                                                                                |
+| 989/990 TCP     | FTPS             | File Transfer Protocol Secure is used to transfer files from host to host over an SSL/TLS encrypted connection                           |
+| 993 TCP         | IMAP4 w. SSL/TLS | Internet Message Access Protocol is used to receive email from a mail server over SSL/TLS encrytped connection                           |
+| 995 TCP         | POP3 w. SSL/TLS  | POP3 using SSL/TLS encrypted connection                                                                                                  |
+| 1433 TCP        | Ms-sql-s         | Microsoft SQL Server is used to receive SQL database queries from clients                                                                |
+| 1645/1646 UDP   | RADIUS (alt.)    | (Alternative) Remote Authentication Dial-In User Service is used for authentication and authorization (1645) and accounting (1646)       |
+| 1701 UDP        | L2TP             | Layer 2 Tunnel Protocl is used as an underlying VPN protocol but has no inherent security                                                |
+| 1723 TCP/UDP    | PPTP             | Point-to-Point Tunneling Protocol is an underlying VPN protocol with built-in security                                                   |
+| 1812/1813 UDP   | RADIUS           | Authentication Dial-In User Service is used for authentication and authorization (1645) and accounting (1646)                            |
+| 3225 TCP/UDP    | FCIP             | Fibre Channel IP is used to encapsuplate Fibre Channel frames within TCP/IP packets                                                      |
+| 3260 TCP        | iSCSI Target     | iSCSI Target is the listening port for iSCSI-targeted devices when linking data storage facilities over IP                               |
+| 3389 TCP/UDP    | RDP              | Remote Desktop Protocol is used to remotely view and control other Windows systems via GUI                                               |
+| 3868 TCP        | Diameter         | A more advanced AAA protocol that is a replacement for RADIUS                                                                            |
+| 6514 TCP        | Syslog over TLS  | Is used to conduct computer message logging, especially for router and firewall logs, over TLS encrypted connection                      |
+
+** RAID - Redundant Array of Independent Disks
+- Allows the combination of multiple physical hard disks into a single logical hard disk drive that is recognized by the operating system.
+- Can provide redundancy and high-availability (depending on which RAID method used)
+- Striping: Spreading data across several disks. Increases retrieval time. Does not improve reliability -- if any of the disks fails, the entire drive data is lost.
+- Mirroring: Copy data from one disk onto two or more disks. Provides reliability -- if any disk fails, the data is still contained on the other disk(s).
+- Fault-Resistant RAID: Protects against the loss of the array's data if a single disk fails (RAID 1 or RAID 5)
+- Fault-Tolerant RAID: Protects against the loss of the array's data if a single component fails (RAID 1, RAID 5, RAID 6)
+- Disaster-Tolerant RAID: Provides two independent zones with full access to the data (RAID 10)
+| RAID    | DRIVES | DESCRIPTION                                                                                                                                  |
+|---------+--------+----------------------------------------------------------------------------------------------------------------------------------------------|
+| RAID 0  |     2+ | Data striping across multiple disks to increase performance. No fault tolerance.                                                             |
+| RAID 1  |     2+ | Mirring the data identically onto two hard disks. Fault tolerance. Relatively expensive.                                                     |
+| RAID 5  |     3+ | Striping data across multiple disks and spreads parity data across the disks. Provides combination of reliability and increased performance. |
+| RAID 6  |     4+ | Modified form of RAID 5. Provides redundancy by striping and double parity data across the disk drives. Survive failure of up to 2 disks.    |
+| RAID 10 |     4+ | Striped RAID of two mirrored RAIDs. i.e. RAID 0 array of two RAID 1 sets. Fault tolerant & Disaster tolerant                                 |
+* Programming
+(programming concepts/scripting/object orientation basics)
+** BASH
+*** Find list of files and replace keyword or string in the filename
+: find <starting_dir> -name '*<string>*' -exec bash -c ' mv -v "$0" "${0/<string>/<newstring>}" ' {} \;
+- if using special characters such as '-' or '|', escape them with '\'
+- May need to run it a few times in case some files have the string multiple times in the name. e.g., if file name is =foo-foo.txt= and you replace 'foo' with 'bar' then running once would result in =bar-foo.txt=. A second run is required to reach =bar-bar.txt=.
+* Risk Management
+** Incident Management
+- Preparation
+- Identification
+- Containment
+- Eradication
+- Recovery
+- Lessons Learned
+* Secure Configuration
+** Best practices
+- Disable PowerShell for regular users
+  Most regular users have zero reason to be using PowerShell. [[file:NOTES_InfoSecLearning.org][Reference]]
+- Use Group Policy to prohibit unsigned executables from running in user profile directories.
+  This cuts about 80% of the application noise & issues. [[file:c:/Users/MikeOwens/Documents/secondbrain/CyberSec/20190717Notes-TrustedSec-ArcOfAnAttack.org::*Starting%20point:%20Use%20GP%20to%20prohibit%20unsigned%20executables%20from%20running%20in%20user%20profile%20directories.%20This%20cuts%20about%2080%25%20of%20the%20noise.][Reference.]]
+* Security General Concepts
+** Security Definitions
+- *INFORMATION SECURITY:* Act of protecting data and information from unauthorized access, unlawful modification and disruption, disclosure, corruption, and destruction.
+- *INFORMATION SYSTEMS SECURITY:* Act of Protecting the systems that hold and process our critical data
+** AAA of Security
+*** Authentication
+When a person's identity is established with proof and confirmed by a system
+*** Authorization
+- Approved access to a certain piece of data or areas of building
+*** Accounting
+- tracking of data, computer usage, and network resources
+- non-repudiation = proof
+  - e.g. log file
+* Security Technologies & Tools
+** Hardening
+- Restricting Applications
+  - Minimize applications
+  - Standardized baseline configuration
+  - SCCM
+- Application whitelist / blacklist
+*** Trusted Operating System
+- Any operating system that meets the requirements set forth by the government and has multilevel security
+** Application Security
+- Cookies
+  - Know tracking cookies vs. session cookies
+- Windows - User Account Control
+  - Prevents unauthorized axccess and avoids user error in the form of accidental changes
+* Threats, Attacks, & Vulnerabilities
+** Security Threats
+- Malware
+- Unauthorized Access
+- System Failure
+- Social Engineering
+** Mitigating Threats
+- Physical controls
+- Technical controls
+- Administrative controls
+** Hackers
+- White hat
+- Black hat
+- Gray hat
+- Blue hat (like white hat --- but freelance... e.g. bug bounty program)
+- Elite (could be white hat or black hat)
+** Threat Actors
+- Script kiddies
+- Hacktivist
+- Organized Crime
+- Advanced Persistent Threats (often Nation States)
+** Malware
+Software designed to infiltrate a computer system and possibly dmage it without the user's consent
+*** Virus
+*Exam expects knowledge of 10 categories -- see study guide*
+Requires user action
+*** Worm
+self-replicate without user consent or action
+*** Trojan
+hidden malicious function in "harmless" or desirable software
+*** Ransomware
+*** Spyware
+adware, keyloggers, etc.
+grayware -- software that isn't benign or malicious, behaves improperly but without serious consequences (aka "jokeware")
+*** Rootkit
+- administrative level control over a system without detection
+- *DLL Injection* - malicious code inserted into running process on Win machine by taking advantage of Dynamic Link Libraries that are loaded at runtime.
+- *Driver Manipulation*
+- *Shim* - intercept calls between components and redirect to malicous elements
+*** Spam
+- mostly just ads, just annoying
+ -but can have embedded malware
+** Malware infections
+Two pieces of how malware gets onto a machine:
+1. Threat vector (method used by attacker to access victim machine)
+2. Attack vector (method used by attacker to gain access to victim's machine in order to infect it with malware)
+*** Common delivery methods
+- software, messaging, and media
+- watering hole
+  - compromised or spoofed website with malware downloads
+  - typosquatting
+*** Botnets & Zombies
+- zombie -- under control of attacker, part of botnet
+*** Logic Bomb
+- malicious code that has been inserted inside a program and will execute only when certain conditions have been met
+ 
