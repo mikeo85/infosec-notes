@@ -326,6 +326,21 @@ dpkg -i *.deb
 - Suggested use:
   - Review all duplicates, recursive, multiple directories, with filesize: =$ fdupes -S -R <dir1> <dir2> > ~/fdupeslist.txt=
   - Same search, delete files (prompted one set at a time): =$ fdupes -d -R <dir1> <dir2>=
+*** Restart GNOME Shell
+X11 only: press Alt+F then r then Enter
+*** USB to Serial adapter setup
+- Ref: https://youtu.be/HuCh7o7OsGk
+- List all usb devices with =lsusb=
+  - Output example: =Bus 001 Device 008: ID 067b:2303 Prolific Technology, Inc. PL2303 Serial Port=
+- Attach USB adapter to serial port on linux:
+  - =sudo modprobe usbserial vendor=0x<A> product=0x<B>=
+  - where <A> is the first four characters of the ID (in above example: "067b") and <B> is second four characters of the ID (example: "2303")
+- Confirm USB-to-serial adapter is recognized by system and ready to go:
+  - =dmesg | grep pl<B>= (where <B> is same as above)
+  - Interface will be listed in (probably) last line of output... =pl<B> converter now attached to ttyUSB[#]=
+- Interface =tty####= will be used when using serial console access utlities (screen, etc)
+- Test connectivity: =sudo screen /dev/ttyUSB0 115200= (or whatever interface number)
+
 * Networking
 (TCP/IP/switching/routing/protocols,etc.)
 ** Network Tools
@@ -418,6 +433,9 @@ can also be used as an IP scanner, but slower than arp-scan.
 : find <starting_dir> -name '*<string>*' -exec bash -c ' mv -v "$0" "${0/<string>/<newstring>}" ' {} \;
 - if using special characters such as '-' or '|', escape them with '\'
 - May need to run it a few times in case some files have the string multiple times in the name. e.g., if file name is =foo-foo.txt= and you replace 'foo' with 'bar' then running once would result in =bar-foo.txt=. A second run is required to reach =bar-bar.txt=.
+** GIT
+*** Scan repo for secrets
+- scanrepo tool: https://github.com/UKHomeOffice/repo-security-scanner
 * Risk Management
 ** Incident Management
 - Preparation
