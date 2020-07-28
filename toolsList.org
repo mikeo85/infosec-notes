@@ -1,0 +1,14 @@
+#+TITLE: toolsList
+#+DATE: <2020-07-28 Tue>
+#+AUTHOR: Mike Owens
+#+EMAIL: mikeowens@fastmail.com
+#+LANGUAGE: en
+#+CREATOR: Emacs 26.3 (Org mode 9.1.9)
+
+* Mobile Device Management
+** SimpleMDM
+- Ridiculously Simple Apple Device Management
+- https://simplemdm.com/
+** Workspace ONE
+- https://www.vmware.com/products/workspace-one.html
+
